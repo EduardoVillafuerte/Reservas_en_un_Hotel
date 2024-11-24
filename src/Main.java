@@ -8,13 +8,9 @@ public class Main {
 
         Hotel hotel = new Hotel("Tropical");
 
-
-
         hotel.agregarHabitacion(h1);
         hotel.agregarHabitacion(h2);
         hotel.agregarHabitacion(h3);
-        System.out.println(hotel.toString());
-        System.out.println(hotel.toString());
 
         Habitacion habitacioDisponible = hotel.consultarDisponibilidad();
         if(habitacioDisponible != null){
@@ -36,6 +32,7 @@ public class Main {
                 System.out.println("No se pudo realizar");
             }
         }
+        System.out.println("ja");
 
 
 
