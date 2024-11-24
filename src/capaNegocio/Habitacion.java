@@ -45,6 +45,13 @@ public class Habitacion {
         this.tipo = tipo;
     }
 
-
-
+    @Override
+    public String toString() {
+        return "Habitacion{" +
+                "dias=" + dias +
+                ", disponibilidad=" + disponibilidad +
+                ", precioNoche=" + precioNoche +
+                ", tipo=" + tipo +
+                '}';
+    }
 }
