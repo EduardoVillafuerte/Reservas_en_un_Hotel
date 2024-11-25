@@ -38,7 +38,7 @@ public class Fecha {
         setDia(Integer.parseInt(string.substring(0,2)));
         setMes(Integer.parseInt(string.substring(3,5)));
         setAnio(Integer.parseInt(string.substring(6)));
-        return new Fecha(getAnio(),getDia(),getMes());
+        return new Fecha(getDia(),getMes(),getAnio());
     }
 
 }

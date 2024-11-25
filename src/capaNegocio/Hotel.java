@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class Hotel {
     private String nombre;
     private ArrayList<Habitacion> habitaciones = new ArrayList<>();
-    private ArrayList<Reserva> reservas = new ArrayList<>();  // Usamos ArrayList para las reservas
+    private ArrayList<Reserva> reservas = new ArrayList<>();
 
     public Hotel() {
         this.habitaciones.add(new Habitacion(1,true,60.0,Tipo.FAMILIAR));
@@ -28,7 +28,6 @@ public class Hotel {
 
     public boolean crearReserva(String nombre, int numeroHabitacion, int dias, String fechaCheckiIn, String fechaCheckiOut, String formaDePago, Habitacion habitacion) {
         Fecha fecha = new Fecha();
-        // Verifica si hay espacio disponible y agrega la reserva a la lista
         if (habitacion != null) {
             Reserva nuevaReserva = new Reserva(
                     nombre,
@@ -38,7 +37,7 @@ public class Hotel {
                     formaDePago,
                     habitacion
             );
-            reservas.add(nuevaReserva);  // Agregamos la reserva a la lista
+            reservas.add(nuevaReserva);
             System.out.println("Reserva creada: " + nuevaReserva.getNombre());
             return true;
         }
@@ -53,8 +52,8 @@ public class Hotel {
             for (Reserva reservas : reservas) {
                 String reserva= "Nombre: "+reservas.getNombre()+"\n"+
                                 "Dias de estancia: "+reservas.getDias()+"\n"+
-                                "Check In: "+ reservas.getCheck_inFecha()+"\n"+
-                                "Check Out: "+ reservas.getCheck_outFecha()+"\n"+
+                                "Check In: "+ reservas.getCheck_outFecha().getDia()+"/"+reservas.getCheck_outFecha().getMes()+"/"+reservas.getCheck_outFecha().getAnio()+"/"+"\n"+
+                                "Check Out: "+ reservas.getCheck_outFecha().getDia()+"/"+reservas.getCheck_outFecha().getMes()+"/"+reservas.getCheck_outFecha().getAnio()+"/"+"\n"+
                                 "Forma de pago: " + reservas.getFormaDePago()+"\n"+
                                 "Numero habitacion "+ reservas.getHabitacion().getNumHabitacion()+"\n"+
                                 "Precio x noche: " + reservas.getHabitacion().getPrecioNoche()+"\n"+
@@ -65,19 +64,8 @@ public class Hotel {
         }
     }
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
     public ArrayList<Habitacion> getHabitaciones() {
         return habitaciones;
     }
 
-    public void setHabitaciones(ArrayList<Habitacion> habitaciones) {
-        this.habitaciones = habitaciones;
-    }
 }
