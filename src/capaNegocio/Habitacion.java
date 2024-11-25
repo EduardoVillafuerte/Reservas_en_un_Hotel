@@ -1,24 +1,28 @@
 package capaNegocio;
 
+import java.util.ArrayList;
+
 public class Habitacion {
-    private int dias;
     private boolean disponibilidad;
+    private int numHabitacion;
     private double precioNoche;
     private Tipo tipo;
 
-    public Habitacion(int dias, boolean disponibilidad, double precioNoche, Tipo tipo) {
-        this.dias = dias;
+
+    public Habitacion(int numHabitacion, boolean disponibilidad, double precioNoche, Tipo tipo) {
+        this.numHabitacion = numHabitacion;
         this.disponibilidad = disponibilidad;
         this.precioNoche = precioNoche;
         this.tipo = tipo;
     }
+    public Habitacion(){}
 
-    public int getDias() {
-        return dias;
+    public int getNumHabitacion() {
+        return numHabitacion;
     }
 
-    public void setDias(int dias) {
-        this.dias = dias;
+    public void setNumHabitacion(int numHabitacion) {
+        this.numHabitacion = numHabitacion;
     }
 
     public boolean isDisponible() {
@@ -45,6 +49,8 @@ public class Habitacion {
         this.tipo = tipo;
     }
 
-
+    public boolean isDisponibilidad() {
+        return disponibilidad;
+    }
 
 }

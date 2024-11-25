@@ -1,40 +1,74 @@
 import capaNegocio.*;
 
+import javax.swing.*;
+
 public class Main {
     public static void main(String[] args) {
-        Habitacion h1 = new Habitacion(3,true,54.0, Tipo.INDIVIDUAL);
-        Habitacion h2 = new Habitacion(5,true,60.0,Tipo.FAMILIAR);
-        Habitacion h3 = new Habitacion(4,true,62,Tipo.DOBLE);
-
-        Hotel hotel = new Hotel("Tropical");
-
-        hotel.agregarHabitacion(h1);
-        hotel.agregarHabitacion(h2);
-        hotel.agregarHabitacion(h3);
-
-        Habitacion habitacioDisponible = hotel.consultarDisponibilidad();
-        if(habitacioDisponible != null){
-            System.out.println("Encontrada");
-            System.out.println("Precio por noche: " + habitacioDisponible);
-        } else{
-            System.out.println("No se encontro habitación Disponible");
-        }
-
-        if(habitacioDisponible != null){
-            Fecha checkIn = new Fecha(1,12,2024);
-            Fecha chechOut= new Fecha(5,12,2024);
-
-            Reserva reserva = hotel.crearReserva(1,checkIn,chechOut );
-
-            if(reserva != null){
-                System.out.println("Proceso exitoso.");
-            } else{
-                System.out.println("No se pudo realizar");
+        Hotel hotel = new Hotel();
+        int opcion;
+        do{
+            opcion = Integer.parseInt(menu());
+            switch (opcion){
+                case 1:
+                    crearReserva(hotel);
+                    break;
+                case 2:
+                    imprimirReservas(hotel);
+                    break;
+                case 3:
+                    break;
+                default:
+                    break;
             }
+        }while (opcion != 3);
+    }
+
+    public static String menu(){
+        return JopInput( "Bienvenido/a al hotel Tropical\n" +
+                            "Ingrese una opcion:\n" +
+                            "1.Agendar reserva\n" +
+                            "2.Imprimir reservas\n" +
+                            "3.Salir");
+    }
+
+    public static void imprimirReservas(Hotel hotel){
+        hotel.imprimirReservas();
+    }
+
+    public static void crearReserva(Hotel hotel){
+        int contador = 0;
+        Habitacion habitacion;
+        String[] habitaciones = new String[3] ;
+        String nombre = JopInput("Ingrese su nombre");
+        for(Habitacion hb: hotel.getHabitaciones()){
+            habitaciones[contador] = "Numero de habitacion: "+hb.getNumHabitacion()+", Tipo: "+hb.getTipo().toString()+",Precio x Noche: "+hb.getPrecioNoche()+"\n";
+            contador ++;
         }
-        System.out.println("ja");
+        int numeroHabitacion = Integer.parseInt(JopInput("Ingrese el numero de habitacion: \n"+habitaciones[0]+habitaciones[1]+habitaciones[2]));
 
+        habitacion = hotel.consultarDisponibilidad(numeroHabitacion);
+        if(habitacion == null) {
+            JOptionPane.showMessageDialog(null,"Esta habitacion no se encuentra disponible");
+            return;
+        }
 
+        int dias = Integer.parseInt(JopInput("Ingrese cuántos días se quedara en el hotel"));
+        String fechaCheckiIn = JopInput("Ingrese la fecha del CheckIn en forma \"dd/mm/aaaa\"");
+        String fechaCheckiOut = JopInput("Ingrese la fecha del CheckOut en forma \"dd/mm/aaaa\"");
+        int formaPago = Integer.parseInt(JopInput("Ingrese su forma de pago:\n1.Tarjeta\n2.Efectivo\n3.Transferencia"));
+        String formaDePago = switch (formaPago){
+            case 1 -> "Tarjeta";
+            case 2 -> "Efectivo";
+            case 3 -> "Transferencia";
+            default -> "Efectivo";
+        };
+        if(hotel.crearReserva(nombre,numeroHabitacion,dias,fechaCheckiIn,fechaCheckiOut,formaDePago,habitacion))
+            System.out.println("Se creo la reserva");
+        else
+            System.out.println("Fallo la reserva");
+    }
 
+    public static String JopInput(String string){
+        return JOptionPane.showInputDialog(null,string);
     }
 }
